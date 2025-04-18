@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="{% static 'examapp/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'examapp/css/all.css'%}">
+    <style>
+        .form>div {
+            position: relative;
+            bottom: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    {% if signup %}
+    <nav class="navbar navbar-expand-lg bg-info fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/examapp/home">Exam Online</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav" style="width: 100%;">
+                    <a class="nav-link" href="/examapp/home">Home</a>
+                    <a class="nav-link" href="/examapp/about">About</a>
+                    <a class="nav-link" href="/examapp/contact">Contact Us</a>
+                    <a class="nav-link" href="/examapp/adminlogin">Admin</a>
+                    <a class="nav-link ms-auto active" aria-current="page" href="/examapp/signup">Create Account</a>
+                    <a class="nav-link" href="/examapp/login">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container-sm bg-form formview" style="margin-top: 70px;">
+        <h3>Register User</h3>
+        <form method="post" action="/examapp/signup" class="d-flex flex-column form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div style="text-align: right;">
+                <a href="/examapp/home" class="btn btn-info text-white me-2">Cancel</a>
+                <button type="submit" class="btn btn-info text-white me-5">Submit</button>
+
+            </div>
+        </form>
+    </div>
+    {% endif %}
+
+
+    {% if update %}
+    <nav class="navbar navbar-expand-lg bg-info fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/examapp/user/{{user.id}}">Exam Online</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+    <div class="container-sm bg-form formview">
+        <h3 style="text-align: center;">Update User</h3>
+        <form method="post" action="/examapp/updateuser/{{user.id}}" class="d-flex flex-column form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div style="text-align: right;">
+                <a href="/examapp/home" class="btn btn-info text-white me-2">Cancel</a>
+                <button type="submit" class="btn btn-info text-white me-5">Submit</button>
+
+            </div>
+        </form>
+    </div>
+    {% endif %}
+
+    <script src="{% static 'examapp/js/bootstrap.bundle.min.js'%}"></script>
+</body>
+
+</html>

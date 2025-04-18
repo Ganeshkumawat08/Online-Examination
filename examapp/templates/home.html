@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME</title>
+    <link rel="stylesheet" href="{% static 'examapp/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'examapp/css/all.css'%}">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-info">
+        <div class="container-fluid ">
+            <a class="navbar-brand" href="/examapp/home">Exam Online</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav" style="width: 100%;">
+                    <a class="nav-link active" aria-current="page" href="/examapp/home">Home</a>
+                    <a class="nav-link" href="/examapp/about">About</a>
+                    <a class="nav-link" href="/examapp/contact">Contact Us</a>
+                    <a class="nav-link" href="/examapp/adminlogin">Admin</a>
+                    <a class="nav-link ms-auto" href="/examapp/signup">Create Account</a>
+                    <a class="nav-link" href="/examapp/login">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- <div class="container-sm" style="margin-top: 100px;">
+        Welcome to Online Exam,
+    </div> -->
+    <div class="home-container">
+        <h1>Welcome to the Online Examination System</h1>
+        <div class="mt-2 p-2">
+            <a class="btn btn-info me-2"  href="/examapp/signup">Signup</a>
+            <a class="btn btn-info"  href="/examapp/login">Login</a>
+        </div>
+      
+    </div>
+
+    <!-- <div class="home-container bg-success p-2" style="--bs-bg-opacity: .5;">
+        <h1>Welcome to the Online Examination System</h1>
+    </div> -->
+   
+    <script src="{% static 'examapp/js/bootstrap.bundle.min.js'%}"></script>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper</title>
+    <link rel="stylesheet" href="{% static 'examapp/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'examapp/css/all.css'%}">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-info fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="">Exam Online</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav" style="width: 100%;">
+                    <!-- <a class="nav-link ms-auto" href="/examapp/user/{{user.id}}">Exit Exam</a> -->
+                    <button type="button" class="nav-link ms-auto" onclick="exit()">Exit Exam</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-md" style="margin-top: 100px;">
+        <form method="post">
+            {% csrf_token %}
+
+         <h1 style="text-align: center;">Subject-   <u><span id="subject">{{question.subject}}</span></u></h1>
+            <!-- <h4 id="subject">{{question.subject}}</h4> -->
+
+            <div>
+                <span id="id" hidden>{{question.id}}</span>
+                <b> (<span id="sno"></span>) {{question.question}}</b>
+            </div>
+
+            <div class="form-check">
+                <input type="radio" name="option" id="option1" value="1" class="form-check-input">
+                <label for="option1" class="form-check-label">{{question.option1}}</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" name="option" id="option2" value="2" class="form-check-input">
+                <label for="option2" class="form-check-label">{{question.option2}}</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" name="option" id="option3" value="3" class="form-check-input">
+                <label for="option3" class="form-check-label">{{question.option3}}</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" name="option" id="option4" value="4" class="form-check-input">
+                <label for="option4" class="form-check-label">{{question.option4}}</label>
+            </div>
+
+            <input type="number" name="answer" id="answer" value="{{question.answer}}" hidden>
+            <div style="text-align: right;">
+                <button type="button" onclick="submitcourseque()" class="btn btn-success" id="coursebutton">Submit
+                    Question</button>
+                <button type="button" onclick="submitsubjectque()" class="btn btn-success" id="subjectbutton">Submit
+                    Question</button>
+            </div>
+        </form>
+
+    </div>
+
+    <script src="{% static 'examapp/js/bootstrap.bundle.min.js'%}"></script>
+    <script src="{% static 'examapp/js/coursefun.js'%}"></script>
+    <script src="{% static 'examapp/js/subjectfun.js'%}"></script>
+    <script>
+        let buttonactive = localStorage.getItem('method');
+
+        if (buttonactive == 'subject') {
+            let sub = document.getElementById('coursebutton');
+            sub.style.display = 'none';
+        }
+        else if (buttonactive == 'course') {
+            let sub = document.getElementById('subjectbutton');
+            sub.style.display = 'none';
+        }
+
+        let sno = parseInt(localStorage.getItem('que'));
+        document.getElementById('sno').innerText = sno + 1;
+
+        function exit() {
+            let user = localStorage.getItem('userid')
+            window.location.href = `/examapp/user/${user}`
+        }
+    </script>
+</body>
+
+</html>

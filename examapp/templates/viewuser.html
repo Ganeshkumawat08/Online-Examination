@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin viewuser</title>
+    <link rel="stylesheet" href="{% static 'examapp/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'examapp/css/all.css'%}">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-info fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/examapp/home">Exam Online</a>
+        </div>
+    </nav>
+
+    <div class="adminview bg-primary-subtle">
+        <ul class="navbar-nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/examapp/admin/101">Admin</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/examapp/viewusers">Approved Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/examapp/allresults">All Results</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/examapp/courses">Courses</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/examapp/subjects">Subjects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/examapp/paper">Papers</a>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                    aria-expanded="false">Add Data</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/examapp/addcourse">Course</a></li>
+                    <li><a class="dropdown-item" href="/examapp/addsubject">Subject</a></li>
+                    <li><a class="dropdown-item" href="/examapp/addpaper">Paper</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/examapp/home">Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="admindata">
+
+        <h2>Users Approved</h2>
+        <table class="table table-info table-hover table-striped ">
+            <tr>
+                <th>S.NO.</th>
+                <th>user id</th>
+                <th>password</th>
+                <th>Name</th>
+                <th>gender</th>
+                <th>Dob</th>
+                <th>Email</th>
+                <th>Mobile Number</th>
+                <th>status</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td> {{user.userid}}</td>
+                <td> {{user.password}}</td>
+                <td> {{user.name}}</td>
+                <td> {{user.gender}}</td>
+                <td> {{user.dob}}</td>
+                <td> {{user.email}}</td>
+                <td> {{user.mobile_number}}</td>
+
+                <td>{% if user.status %}
+                    <a href="/examapp/checkuser/{{user.id}}" class="icon tick">&#10004;</a>
+                    {% else %}
+                    <a href="/examapp/checkuser/{{user.id}}" class="icon cross">&#10008;</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+    <script src="{% static 'examapp/js/bootstrap.bundle.min.js'%}"></script>
+</body>
+
+</html>

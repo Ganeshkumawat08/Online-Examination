@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin login</title>
+    <link rel="stylesheet" href="{% static 'examapp/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'examapp/css/all.css'%}">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-info fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/examapp/home">Exam Online</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav" style="width: 100%;">
+                    <a class="nav-link" href="/examapp/home">Home</a>
+                    <a class="nav-link" href="/examapp/about">About</a>
+                    <a class="nav-link" href="/examapp/contact">Contact Us</a>
+                    <a class="nav-link active" aria-current="page" href="/examapp/adminlogin">Admin</a>
+                    <a class="nav-link ms-auto" href="/examapp/signup">Create Account</a>
+                    <a class="nav-link" href="/examapp/login">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-sm bg-form formview">
+        <form method="post" action="/examapp/adminlogin">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="admin" name="admin" placeholder="admin" value="{{admin}}">
+                <label for="admin">admin:</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+                <label for="password">Password</label>
+            </div>
+            <div style="text-align: right;">
+                <a href="/examapp/home" class="btn btn-info text-white me-2">Cancel</a>
+                <button type="submit" class="btn btn-info text-white me-5">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="{% static 'examapp/js/bootstrap.bundle.min.js'%}"></script>
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Page</title>
+    <link rel="stylesheet" href="{% static 'examapp/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'examapp/css/all.css'%}">
+    <style>
+        .d-flex label {
+            width: 150px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-info fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/examapp/user/{{user.id}}">Exam Online</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav" style="width: 100%;">
+                    <a class="nav-link ms-auto" href="/examapp/examresult/{{user.id}}">Result</a>
+                    <button class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                        aria-controls="offcanvasNavbar" aria-label="Toggle navigation">Account Details
+                    </button>
+                    <a class="nav-link" href="/examapp/home">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Account Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li id="user" hidden>{{user.id}}</li>
+                <li class="nav-item active"><b>{{user.userid}}</b> </li>
+                <li class="nav-item">Name : {{user.name}}</li>
+                <li class="nav-item">Gender : {{user.gender}} </li>
+                <li class="nav-item">DOB : {{user.dob}} </li>
+                <li class="nav-item">Email : {{user.email}} </li>
+                <li class="nav-item">Mobile Number: {{user.mobile_number}} </li>
+                <li class="nav-item"> status :{% if user.status %} Approved {% else %}
+                    Not Approved{% endif %}</li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/examapp/updateuser/{{user.id}}">Update Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/examapp/deleteuser/{{user.id}}">Delete Account</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+
+    {% if course %}
+    <div class="container-sm bg-success bg-opacity-50 p-3 rounded" style="margin-top: 100px; width: 50vw;">
+        <form method="post" action="/examapp/resultcourse/{{user.id}}">
+            {% csrf_token %}
+            <p class="d-flex">
+                <label for="course">Course:</label>
+                <input type="text" name="course" id="course" class="form-control" readonly>
+            </p>
+            <p class="d-flex">
+                <label for="subjects"> subjects: </label>
+                <input type="text" name="subjects" id="subjects" class="form-control" readonly>
+            </p>
+            <p class="d-flex">
+                <label for="totalmarks"> Total Marks: </label>
+                <input type="number" name="totalmarks" id="totalmarks" class="form-control" readonly>
+            </p>
+            <p class="d-flex">
+                <label for="questions"> Total Questions: </label>
+                <input type="number" name="questions" id="questions" class="form-control" readonly>
+            </p>
+            <p class="d-flex">
+                <label for="percentage"> Percentage: </label>
+                <input type="number" name="percentage" id="percentage" class="form-control" readonly>
+            </p>
+            <p class="d-flex">
+                <label for="result"> Result: </label>
+                <input type="text" name="result" id="result" class="form-control" readonly>
+            </p>
+            <div class="d-flex flex-row-reverse">
+                <button type="submit" class="btn btn-success me-5">Save Result</button>
+            </div>
+        </form>
+    </div>
+    <script src="{% static 'examapp/js/coursesubmit.js'%}"></script>
+    {% endif %}
+
+
+
+
+    {% if subject %}
+    <div class="container-sm" style="margin-top: 100px; width: 50vw;">
+        <form method="post" action="/examapp/resultsubject/{{user.id}}" class="mt-5">
+            {% csrf_token %}
+
+            <p class="d-flex">
+                <label for="subject" class="form-label"> Subject: </label>
+                <input type="text" name="subject" id="subject" class="form-control" readonly>
+            </p>
+            <p class="d-flex">
+                <label for="marks" class="form-label"> Total Marks: </label>
+                <input type="number" name="marks" id="marks" class="form-control" readonly>
+            </p>
+            <p class="d-flex">
+                <label for="questions" class="form-label"> Total Questions: </label>
+                <input type="number" name="questions" id="questions" class="form-control" readonly>
+            </p>
+            <p class="d-flex">
+                <label for="percentage" class="form-label"> Percentage: </label>
+                <input type="number" name="percentage" id="percentage" class="form-control" readonly>
+            </p>
+            <p class="d-flex">
+                <label for="result" class="form-label"> Result: </label>
+                <input type="text" name="result" id="result" class="form-control" readonly>
+            </p>
+            <div class="d-flex flex-row-reverse">
+                <button type="submit" class="btn btn-primary me-5">Save Result</button>
+            </div>
+        </form>
+
+    </div>
+    <script src="{% static 'examapp/js/subjectsubmit.js'%}"></script>
+    {% endif %}
+
+
+    <script src="{% static 'examapp/js/bootstrap.bundle.min.js'%}"></script>
+</body>
+
+</html>

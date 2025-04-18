@@ -1,0 +1,135 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin</title>
+    <link rel="stylesheet" href="{% static 'examapp/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'examapp/css/all.css'%}">
+
+    <style>
+        .form p label{
+            width: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-info fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/examapp/home">Exam Online</a>
+        </div>
+    </nav>
+
+    <div class="adminview bg-primary-subtle">
+        <ul class="navbar-nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/examapp/admin/101">Admin</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/examapp/viewusers">Approved Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/examapp/allresults">All Results</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/examapp/courses">Courses</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/examapp/subjects">Subjects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/examapp/paper">Papers</a>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                    aria-expanded="false">Add Data</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/examapp/addcourse">Course</a></li>
+                    <li><a class="dropdown-item" href="/examapp/addsubject">Subject</a></li>
+                    <li><a class="dropdown-item" href="/examapp/addpaper">Paper</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/examapp/home">Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="admindata">
+
+        {% if form %}
+
+        {% if add %}
+        <div class="container-fluid bg-info-subtle p-4 rounded">
+        <h3>Add Question</h3>
+        <form method="post" action="/examapp/addpaper" enctype="multipart/form-data" class="d-flex flex-column form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div style="text-align: right;">
+                <a href="/examapp/admin/101" class="btn btn-primary me-2">Cancel</a>
+                <button type="submit" class="btn btn-primary me-5">Submit</button>
+            </div>
+        </form>
+    </div>
+        {% endif %}
+
+        {% if edit %}
+        <div class="container-fluid bg-info-subtle p-4 rounded">
+        <h3>Update Question</h3>
+        <form method="post" action="/examapp/editpaper/{{paper}}" enctype="multipart/form-data" class="d-flex flex-column form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div style="text-align: right;">
+                <a href="/examapp/admin/101" class="btn btn-primary me-2">Cancel</a>
+                <button type="submit" class="btn btn-primary me-5">Submit</button>
+            </div>
+        </form>
+    </div>
+        {% endif %}
+
+        {% endif %}
+
+        {% if questions %}
+        <h2>Questions</h2>
+        <table class="table table-hover table-info">
+
+                {% for subject, papers in questions.items %}
+                <thead>
+                <tr>
+                    <th>{{forloop.counter}}</th>
+                    <th colspan="7">{{ subject }}</th>
+                </tr></thead>
+                <tbody>
+                <tr>
+                    {% for paper in papers %}
+                    <td>Que({{forloop.counter}}): {{ paper.question }}</td>
+                    <td>
+                        <ol>
+                            <li>{{ paper.option1 }}</li>
+                            <li>{{ paper.option2 }}</li>
+                            <li>{{ paper.option3 }}</li>
+                            <li>{{ paper.option4 }}</li>
+                        </ol>
+                    </td>
+                    <td>Ans: {{ paper.answer }}</td>
+                    <td><a href="/examapp/editpaper/{{paper.id}}" class="btn-none">Update</a></td>
+                    <td> <button onclick="conform(this)" id="{{paper.id}}" value="paper" class="btn-none">Delete</button></td>
+                </tr>
+                {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+    </div>
+    <script src="{% static 'examapp/js/bootstrap.bundle.min.js'%}"></script>
+    <script src="{% static 'examapp/js/script.js'%}"></script>
+
+</body>
+
+</html>

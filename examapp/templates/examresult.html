@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Page</title>
+    <link rel="stylesheet" href="{% static 'examapp/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'examapp/css/all.css'%}">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-info fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/examapp/user/{{user.id}}">Exam Online</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav" style="width: 100%;">
+                    <a class="nav-link ms-auto" href="">Result</a>
+                    <button class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                        aria-controls="offcanvasNavbar" aria-label="Toggle navigation">Account Details
+                    </button>
+                    <a class="nav-link" href="/examapp/home">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Account Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <!-- <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>-->
+                <li id="user" hidden>{{user.id}}</li>
+                <li class="nav-item active"><b>{{user.userid}}</b> </li>
+                <li class="nav-item">Name : {{user.name}}</li>
+                <li class="nav-item">Gender : {{user.gender}} </li>
+                <li class="nav-item">DOB : {{user.dob}} </li>
+                <li class="nav-item">Email : {{user.email}} </li>
+                <li class="nav-item">Mobile Number: {{user.mobile_number}} </li>
+                <li class="nav-item"> status :{% if user.status %} Approved {% else %}
+                    Not Approved{% endif %}</li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/examapp/updateuser/{{user.id}}">Update Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/examapp/deleteuser/{{user.id}}">Delete Account</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+  
+    <div class="container-sm bg-info bg-opacity-50 p-3 rounded" style="margin-top: 100px;">
+        <h4>Course Results</h4>
+        <table class="table table-hover table-info">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Userid</th>
+                    <th>Course</th>
+                    <th>Subjects</th>
+                    <th>Total Marks</th>
+                    <th>Total Questions</th>
+                    <th>Percentage</th>
+                    <th>Results</th>
+                </tr>
+            </thead>
+            {% for result in courseresult %}
+            <tr>
+                <td> {{result.id}}</td>
+                <td> {{result.user}}</td>
+                <td> {{result.course}}</td>
+                <td> {{result.subjects}}</td>
+                <td> {{result.marks}}</td>
+                <td> {{result.questions}}</td>
+                <td> {{result.percentage}}</td>
+                <td> {{result.result}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+</div>
+        <div class="container-sm bg-info bg-opacity-50 mt-3 p-3 rounded">
+
+
+        <h4>Subject Results</h4>
+        <table class="table mt-1 table-hover table-info p-3 rounded">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Userid</th>
+                    <th>Subjects</th>
+                    <th>Total Marks</th>
+                    <th>Total Question</th>
+                    <th>Percentage</th>
+                    <th>Results</th>
+                </tr>
+            </thead>
+            {% for result in subjectresult %}
+            <tr>
+                <td> {{result.id}}</td>
+                <td> {{result.user}}</td>
+                <td> {{result.subject}}</td>
+                <td> {{result.marks}}</td>
+                <td> {{result.questions}}</td>
+                <td> {{result.percentage}}</td>
+                <td> {{result.result}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <script src="{% static 'examapp/js/bootstrap.bundle.min.js'%}"></script>
+</body>
+
+</html>

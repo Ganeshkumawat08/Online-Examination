@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Page</title>
+    <link rel="stylesheet" href="{% static 'examapp/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'examapp/css/all.css'%}">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-info fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/examapp/user/{{user.id}}">Exam Online</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav" style="width: 100%;">
+                    <!-- <a class="nav-link ms-auto" href="/examapp/examresult/{{user.id}}">Result</a> -->
+                    <button class="nav-link ms-auto" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
+                        aria-label="Toggle navigation">Account Details
+                    </button>
+                    <a class="nav-link" href="/examapp/home">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Account Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <!-- <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>-->
+                <li id="user" hidden>{{user.id}}</li>
+                <li class="nav-item active"><b>{{user.userid}}</b> </li>
+                <li class="nav-item">Name : {{user.name}}</li>
+                <li class="nav-item">Gender : {{user.gender}} </li>
+                <li class="nav-item">DOB : {{user.dob}} </li>
+                <li class="nav-item">Email : {{user.email}} </li>
+                <li class="nav-item">Mobile Number: {{user.mobile_number}} </li>
+                <li class="nav-item"> status :{% if user.status %} Approved {% else %}
+                    Not Approved{% endif %}</li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/examapp/updateuser/{{user.id}}">Update Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/examapp/deleteuser/{{user.id}}">Delete Account</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+
+
+
+
+
+    {% if courses %}
+    <div class="container-md" style="margin-top: 70px;">
+        <h3><u>Courses</u></h3>
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            {% for course in courses %}
+            <div class="col">
+                <div class="card h-100 bg-info-subtle">
+                    <div class="card-body">
+                        <h5 class="card-title">{{course.name}}</h5>
+                        <div class="card-text"> Subjects:</div>
+                        <p class="card-text">
+                            {% for subject in course.subjects.all %}
+                            {{ subject.name }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                        <button type="button" class="btn btn-info" onclick="notapprove()">Start</button>
+                        <!-- <a href="/examapp/examcourse/{{course.id}}/{{user.id}}" class="btn btn-primary">Start</a> -->
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+
+    <hr class="hr">
+    {% if subjects %}
+    <div class="container-md">
+        <h3><u>Subjects</u></h3>
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            {% for subject in subjects %}
+            <div class="col">
+                <div class="card h-100 bg-info-subtle">
+                    <div class="card-body">
+                        <h5 class="card-title">{{subject.name}}({{subject.short_name}})</h5>
+                    </div>
+                    <!-- <a href="/examapp/examsubject/{{subject.id}}/{{user.id}}" class="btn btn-primary">Start Exam</a> -->
+                    <div class="card-body">
+                        <button type="button" class="btn btn-info" onclick="notapprove()">Start</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <script src="{% static 'examapp/js/bootstrap.bundle.min.js'%}"></script>
+    <script>
+        function notapprove() {
+            alert('Your status is not approved')
+        }
+    </script>
+</body>
+
+</html>

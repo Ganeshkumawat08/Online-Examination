@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin subject</title>
+    <link rel="stylesheet" href="{% static 'examapp/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'examapp/css/all.css'%}">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-info fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/examapp/home">Exam Online</a>
+        </div>
+    </nav>
+
+    <div class="adminview bg-primary-subtle">
+        <ul class="navbar-nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/examapp/admin/101">Admin</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/examapp/viewusers">Approved Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/examapp/allresults">All Results</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/examapp/courses">Courses</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/examapp/subjects">Subjects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/examapp/paper">Papers</a>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                    aria-expanded="false">Add Data</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/examapp/addcourse">Course</a></li>
+                    <li><a class="dropdown-item" href="/examapp/addsubject">Subject</a></li>
+                    <li><a class="dropdown-item" href="/examapp/addpaper">Paper</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/examapp/home">Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="admindata">
+        {% if form %}
+
+        {% if add %}
+        <div class="container-sm formview bg-info-subtle">
+            <h3>Add Subjects</h3>
+
+            <form method="post" action="/examapp/addsubject" enctype="multipart/form-data"
+                class="d-flex flex-column form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div style="text-align: right;">
+                    <a href="/examapp/admin/101" class="btn btn-primary me-2">Cancel</a>
+                    <button type="submit" class="btn btn-primary me-5">Submit</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+
+        {% if edit %}
+        <div class="container-sm formview bg-info-subtle">
+            <h3>Edit Subjects</h3>
+            <form method="post" action="/examapp/editsubject/{{subject}}" enctype="multipart/form-data"
+                class="d-flex flex-column form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div style="text-align: right;">
+                    <a href="/examapp/admin/101" class="btn btn-primary me-2">Cancel</a>
+                    <button type="submit" class="btn btn-primary me-5">Submit</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+
+        {% endif %}
+
+        {% if subjects %}
+        <h2>subjects</h2>
+        <table class="table table-hover table-info">
+            <thead>
+                <tr>
+                    <th>S.NO.</th>
+                    <th>Subjects</th>
+                    <th>Questions</th>
+                    <th>Update Subject</th>
+                    <th>Delete Subject</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subject in subjects %}
+                <tr>
+                    <th>{{forloop.counter}}</th>
+                    <td> {{subject.name}}({{subject.short_name}})</td>
+                    <td><a href="/examapp/subjectpaper/{{subject.id}}" class="btn-none">View Paper</a></td>
+                    <td><a href="/examapp/editsubject/{{subject.id}}" class="btn-none">Update</a></td>
+                    <td> <button onclick="conform(this)" id="{{subject.id}}" value="subjects"
+                            class="btn-none">Delete</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+    <script src="{% static 'examapp/js/bootstrap.bundle.min.js'%}"></script>
+    <script src="{% static 'examapp/js/script.js'%}"></script>
+</body>
+
+</html>
