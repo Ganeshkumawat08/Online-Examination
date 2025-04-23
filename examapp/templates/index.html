@@ -3,257 +3,285 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOME</title>
-    <link rel="stylesheet" href="{% static 'examapp/css/bootstrap.min.css'%}">
-    <link rel="stylesheet" href="{% static 'examapp/css/all.css'%}">
-    <style>
-        .contact {
-            width: 60vw;
-            margin-bottom: 40px;
-            margin-top: 50px;
-            padding: 20px;
-        }
-
-        .contact input,
-        .contact textarea,
-        .contact button {
-            margin: 5px 10px;
-        }
-
-
-
-        footer {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px 20px;
-        }
-    </style>
-</head>
-
-<body>
-
-    <nav class="navbar navbar-expand-lg fixed-top bg-info">
-        <div class="container-fluid ">
-            <a class="navbar-brand" href="/examapp/home">Exam Online</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav" style="width: 100%;">
-                    <a class="nav-link active" aria-current="page" href="/examapp/home">Home</a>
-                    <a class="nav-link" href="/examapp/about">About</a>
-                    <a class="nav-link" href="/examapp/contact">Contact Us</a>
-                    <a class="nav-link" href="/examapp/adminlogin">Admin</a>
-                    <a class="nav-link ms-auto" href="/examapp/signup">Create Account</a>
-                    <a class="nav-link" href="/examapp/login">Login</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- <div class="container-sm" style="margin-top: 100px;">
-        Welcome to Online Exam,
-    </div> -->
-    <div class="home-container">
-        <h1>Welcome to the Online Examination System</h1>
-        <div class="mt-2 p-2">
-            <a class="btn btn-info me-2" href="/examapp/signup">Signup</a>
-            <a class="btn btn-info" href="/examapp/login">Login</a>
-        </div>
-
-    </div>
-
-    <!-- <div class="home-container bg-success p-2" style="--bs-bg-opacity: .5;">
-        <h1>Welcome to the Online Examination System</h1>
-    </div> -->
-
-
-
-
-    {% if courses %}
-    <div class="container-sm" style="margin-top: 20px;">
-        <hr class="hr">
-        <h2 class="text-center">Courses</h2>
-        <hr class="hr">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            {% for course in courses %}
-            <div class="col">
-                <div class="card h-100 bg-info-subtle">
-                    <div class="card-body">
-                        <h5 class="card-title">{{course.name}}</h5>
-                        <div class="card-text"> Subjects:</div>
-                        <p class="card-text">
-                            {% for subject in course.subjects.all %}
-                            {{ subject.name }}{% if not forloop.last %}, {% endif %}
-                            {% endfor %}
-                        </p>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-    {% endif %}
-
-    {% if subjects %}
-    <div class="container-sm">
-        <hr class="hr">
-        <h2 class="text-center">Subjects</h2>
-        <hr class="hr">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            {% for subject in subjects %}
-            <div class="col">
-                <div class="card h-100 bg-info-subtle">
-                    <div class="card-body">
-
-                        <h5 class="card-title">{{subject.name}}({{subject.short_name}})</h5>
-
-                    </div>
-
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-    {% endif %}
-
-
-
-
-
-
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Online Examination</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Animate on Scroll -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'examapp/css/onlineexam.css' %}">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f1f5f9;
-      color: #1e293b;
+    * {
       margin: 0;
-      padding: 20px;
+      padding: 0;
+      scroll-behavior: smooth;
     }
-    .container {
-      background-color: #ffffff;
-      padding: 30px;
-      border-radius: 10px;
-      max-width: 800px;
-      margin: auto;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #e6f7ff;
+      scroll-behavior: smooth;
     }
-    h1 {
+
+    .navbar {
+      background-color: #17a2b8 !important;
+    }
+
+    .home-container {
+      text-align: center;
+      padding: 100px 20px;
+    }
+
+    h1,
+    h2 {
       color: #0f172a;
     }
-    ul {
-      padding-left: 20px;
+
+    section {
+      padding: 60px 20px;
     }
-    .section {
-      margin-bottom: 20px;
+
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #17a2b8;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 10px 15px;
+      font-size: 20px;
+      display: none;
+      z-index: 999;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
+
+    .scroll-top-btn:hover {
+      background-color: #138496;
+    }
+
+    .card {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      background-color: #17a2b8;
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .home-container {
+        padding: 60px 15px;
+      }
+    }
+
+
+    .btn-animated {
+    background-color: #0dcaf0;
+    color: white;
+    padding: 0.75rem 2rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 0.5rem;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-animated:hover {
+    transform: scale(1.1);
+    background-color: #0bbbd4;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.btn-animated:active {
+    transform: scale(0.98);
+    background-color: #09a9be;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
   </style>
 </head>
+
 <body>
 
-<div class="container">
-  <h1>Online Examination</h1>
-
-  <div class="section">
-    <p>Online examination is a modern technique of conducting exams through the internet using digital devices like computers, laptops, or mobile phones. It has become very popular in today's digital era as it makes the process of giving and taking exams easier and more efficient.</p>
-  </div>
-
-  <div class="section">
-    <h2>Key Features:</h2>
-    <ul>
-      <li>Remote Access from anywhere</li>
-      <li>Automatic evaluation (especially for MCQs)</li>
-      <li>Time-limited tests</li>
-      <li>Secure login and proctoring options</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h2>Benefits:</h2>
-    <ul>
-      <li>Saves time and effort</li>
-      <li>Cost-effective</li>
-      <li>Instant result generation</li>
-      <li>Environmentally friendly</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h2>Challenges:</h2>
-    <ul>
-      <li>Internet dependency</li>
-      <li>Technical issues</li>
-      <li>Risk of cheating if not properly monitored</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <p>Overall, online examinations are a safe, fast, and convenient method of assessment in the digital world. With the help of proper technology and monitoring, they are shaping the future of education and evaluation.</p>
-  </div>
-</div>
-
-</body>
-</html>
-
-
-
-
-
-
-    <div class="container-sm contact bg-info bg-opacity-25 rounded">
-        <h2 class="text-center">Contact Us</h2>
-
-
-        <form action="/examapp/contact" method="post">
-            <div class="row">
-                <div class="col-12">
-                    <div class="form-group">
-                        <input type="text" name="name" class="form-control" placeholder="Name" required="required">
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6">
-                    <div class="form-group">
-                        <input type="email" name="email" class="form-control" placeholder="Email" required="required">
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6">
-                    <div class="form-group">
-                        <input type="text" name="subject" class="form-control" placeholder="Subject"
-                            required="required">
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="form-group">
-                        <textarea rows="6" name="message" class="form-control" placeholder="Your Message"
-                            required="required"></textarea>
-                    </div>
-                </div>
-                <div class="col-12 text-center">
-                    <button type="submit" value="Send message" name="submit" id="submitButton" class="btn btn-info"
-                        title="Submit Your Message!">Send Message</button>
-                </div>
-            </div>
-        </form>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand text-white" href="#">Exam Online</a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="navbar-nav ms-auto">
+          <a class="nav-link text-white" href="#home">Home</a>
+          <a class="nav-link text-white" href="#features">Features</a>
+          <a class="nav-link text-white" href="#courses">Courses</a>
+          <a class="nav-link text-white" href="#subjects">Subjects</a>
+          <a class="nav-link text-white" href="#about">About</a>
+          <a class="nav-link text-white" href="#contact">Contact</a>
+          <a class="nav-link text-white" href="/examapp/adminlogin">Admin</a>
+        </div>
+      </div>
     </div>
+  </nav>
+
+  <!-- Home -->
+  <section id="home" class="home-container" data-aos="fade-up">
+    <h1>Welcome to the Online Examination System</h1>
+    <p>Modern, secure, and efficient way to take tests remotely.</p>
+    <a class="btn btn-animated mt-3" href="/examapp/login">Start</a>
+
+  </section>
 
 
-    <footer class="bg-info bg-opacity-50">
-        <p>Copyright © 2024 | All Rights Reserved</p>
-    </footer>
+  <!-- Features -->
+  <section id="features" class="container" data-aos="fade-up">
+    <h2 class="text-center mb-4">Key Features</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col">
+        <div class="card p-3 bg-info-subtle h-100">
+          <h5> <i class="bi bi-laptop"></i> Remote Access</h5>
+          <p>Take exams from anywhere in the world with secure login.</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card p-3 bg-info-subtle h-100">
+          <h5> <i class="bi bi-file-earmark-check"></i> Auto Evaluation</h5>
+          <p>Instant results for MCQs with detailed analytics.</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card p-3 bg-info-subtle h-100">
+          <h5> <i class="bi bi-hourglass-split"></i> Time-Limited Tests</h5>
+          <p>Control cheating with time-bound question navigation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- courses -->
+  <section id="courses" class="container" data-aos="zoom-in">
+    {% if courses %}
+    <h2 class="text-center mb-4">Courses</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      {% for course in courses %}
+      <div class="col">
+        <div class="card h-100 bg-info-subtle p-3">
+          <h5>{{ course.name }}</h5>
+          <p>Subjects:
+            {% for subject in course.subjects.all %}
+            {{ subject.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </section>
 
+  <!-- Subjects -->
+  <section id="subjects" class="container" data-aos="zoom-in">
+    {% if subjects %}
+    <h2 class="text-center mb-4">Subjects</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      {% for subject in subjects %}
+      <div class="col">
+        <div class="card h-100 bg-info-subtle p-3">
+          <h5>{{ subject.name }} ({{ subject.short_name }})</h5>
+          <p>
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </section>
 
-    <script src="{% static 'examapp/js/bootstrap.bundle.min.js'%}"></script>
+  <!-- About -->
+  <section id="about" class="container" data-aos="fade-up">
+    <h2 class="text-center mb-4">About Us</h2>
+    <p>Welcome to our Online Examination platform, where we aim to redefine how exams are conducted. Our platform offers
+      a secure, reliable, and user-friendly environment for students and educators to engage in assessments. We are
+      committed to providing an efficient solution for remote learning and evaluation. With features like
+      auto-evaluation, real-time analytics, and secure access, we ensure that each exam is conducted with integrity and
+      precision.</p>
+    <p>Our mission is to make online exams easier, more accessible, and more accurate. Whether you're an institution,
+      teacher, or student, our platform supports your needs by offering customizable exam settings, immediate results,
+      and a simple interface that makes exam-taking stress-free.</p>
+    <p>Join us in transforming the educational experience with technology that enhances learning and streamlines
+      assessment. We believe in providing equal opportunities for students worldwide and making education accessible no
+      matter where you are.</p>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="container bg-info bg-opacity-25 rounded mb-5" data-aos="fade-up">
+    <h2 class="text-center mb-4">Contact Us</h2>
+    <form action="#" method="post">
+      <div class="row g-3">
+        <div class="col-12 col-md-6">
+          <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+        </div>
+        <div class="col-12 col-md-6">
+          <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+        </div>
+        <div class="col-12">
+          <input type="text" name="subject" class="form-control" placeholder="Subject" required>
+        </div>
+        <div class="col-12">
+          <textarea name="message" rows="5" class="form-control" placeholder="Your Message" required></textarea>
+        </div>
+        <div class="col-12 text-center">
+          <button class="btn btn-info" type="submit">Send Message</button>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <!-- Scroll to top -->
+  <button id="scrollTop" class="scroll-top-btn">↑</button>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Online Examination | All Rights Reserved</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/16.1.3/smooth-scroll.polyfills.min.js"></script>
+
+  <script>
+    AOS.init();
+    new SmoothScroll('a[href*="#"]', {
+      speed: 800
+    });
+
+    // Scroll-to-top button show/hide
+    window.addEventListener('scroll', function () {
+      document.getElementById('scrollTop').style.display =
+        window.scrollY > 200 ? 'block' : 'none';
+    });
+
+    // Scroll-to-top click
+    document.getElementById('scrollTop').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
 
 </body>
 

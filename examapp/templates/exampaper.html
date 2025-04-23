@@ -3,92 +3,195 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paper</title>
-    <link rel="stylesheet" href="{% static 'examapp/css/bootstrap.min.css'%}">
-    <link rel="stylesheet" href="{% static 'examapp/css/all.css'%}">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exam Question</title>
+    <link rel="stylesheet" href="{% static 'examapp/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            background: linear-gradient(135deg, #f8fbff, #e3f2fd);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .navbar {
+            background-color: #17a2b8;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand,
+        .nav-link {
+            color: white !important;
+        }
+
+        .container-md {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            animation: slideFade 0.6s ease-in-out;
+        }
+
+        @keyframes slideFade {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 span {
+            color: #0d6efd;
+        }
+
+        .form-check {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 10px 16px;
+            margin-bottom: 12px;
+            transition: transform 0.2s ease, background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-check:hover {
+            background-color: #e3f2fd;
+            transform: scale(1.01);
+        }
+
+        .form-check-input {
+            margin-top: 0 !important;
+            cursor: pointer;
+            accent-color: #0d6efd;
+        }
+
+        .form-check-label {
+            cursor: pointer;
+            flex-grow: 1;
+            margin-bottom: 0;
+        }
+
+        button.btn-success {
+            padding: 8px 18px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        button.btn-success:hover {
+            transform: scale(1.05);
+            background-color: #198754;
+        }
+
+        .form-check .form-check-input {
+            margin-left: 0.5em;
+        }
+
+        @media (max-width: 576px) {
+            .container-md {
+                padding: 1.5rem;
+            }
+
+            .form-check {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+
+            button.btn-success {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+
+            .text-end {
+                text-align: center !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg bg-info fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="">Exam Online</a>
+            <a class="navbar-brand" href="#">Exam Online</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav" style="width: 100%;">
-                    <!-- <a class="nav-link ms-auto" href="/examapp/user/{{user.id}}">Exit Exam</a> -->
-                    <button type="button" class="nav-link ms-auto" onclick="exit()">Exit Exam</button>
+                <div class="navbar-nav ms-auto">
+                    <button type="button" class="nav-link text-white" onclick="exit()"> <i
+                            class="bi bi-box-arrow-left me-1"></i> Exit Exam</button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <div class="container-md" style="margin-top: 100px;">
+    <div class="container-md mt-5">
         <form method="post">
             {% csrf_token %}
 
-         <h1 style="text-align: center;">Subject-   <u><span id="subject">{{question.subject}}</span></u></h1>
-            <!-- <h4 id="subject">{{question.subject}}</h4> -->
+            <h2 class="text-center mb-4">Subject: <u><span id="subject">{{ question.subject }}</span></u></h2>
 
-            <div>
-                <span id="id" hidden>{{question.id}}</span>
-                <b> (<span id="sno"></span>) {{question.question}}</b>
+            <div class="mb-4">
+                <input type="hidden" id="id" value="{{ question.id }}">
+                <b>(<span id="sno"></span>) {{ question.question }}</b>
             </div>
 
             <div class="form-check">
                 <input type="radio" name="option" id="option1" value="1" class="form-check-input">
-                <label for="option1" class="form-check-label">{{question.option1}}</label>
+                <label for="option1" class="form-check-label">{{ question.option1 }}</label>
             </div>
             <div class="form-check">
                 <input type="radio" name="option" id="option2" value="2" class="form-check-input">
-                <label for="option2" class="form-check-label">{{question.option2}}</label>
+                <label for="option2" class="form-check-label">{{ question.option2 }}</label>
             </div>
             <div class="form-check">
                 <input type="radio" name="option" id="option3" value="3" class="form-check-input">
-                <label for="option3" class="form-check-label">{{question.option3}}</label>
+                <label for="option3" class="form-check-label">{{ question.option3 }}</label>
             </div>
             <div class="form-check">
                 <input type="radio" name="option" id="option4" value="4" class="form-check-input">
-                <label for="option4" class="form-check-label">{{question.option4}}</label>
+                <label for="option4" class="form-check-label">{{ question.option4 }}</label>
             </div>
 
-            <input type="number" name="answer" id="answer" value="{{question.answer}}" hidden>
-            <div style="text-align: right;">
-                <button type="button" onclick="submitcourseque()" class="btn btn-success" id="coursebutton">Submit
-                    Question</button>
-                <button type="button" onclick="submitsubjectque()" class="btn btn-success" id="subjectbutton">Submit
-                    Question</button>
+            <input type="hidden" name="answer" id="answer" value="{{ question.answer }}">
+
+            <div class="text-end mt-4">
+                <button type="button" onclick="submitcourseque()" class="btn btn-success me-2" id="coursebutton"> <i
+                        class="bi bi-send-check-fill me-1"></i>Submit</button>
+                <button type="button" onclick="submitsubjectque()" class="btn btn-success" id="subjectbutton"> <i
+                        class="bi bi-send-check-fill me-1"></i>Submit</button>
             </div>
         </form>
-
     </div>
 
-    <script src="{% static 'examapp/js/bootstrap.bundle.min.js'%}"></script>
-    <script src="{% static 'examapp/js/coursefun.js'%}"></script>
-    <script src="{% static 'examapp/js/subjectfun.js'%}"></script>
+    <script src="{% static 'examapp/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'examapp/js/coursefun.js' %}"></script>
+    <script src="{% static 'examapp/js/subjectfun.js' %}"></script>
     <script>
         let buttonactive = localStorage.getItem('method');
-
-        if (buttonactive == 'subject') {
-            let sub = document.getElementById('coursebutton');
-            sub.style.display = 'none';
-        }
-        else if (buttonactive == 'course') {
-            let sub = document.getElementById('subjectbutton');
-            sub.style.display = 'none';
+        if (buttonactive === 'subject') {
+            document.getElementById('coursebutton').style.display = 'none';
+        } else if (buttonactive === 'course') {
+            document.getElementById('subjectbutton').style.display = 'none';
         }
 
-        let sno = parseInt(localStorage.getItem('que'));
+        let sno = parseInt(localStorage.getItem('que')) || 0;
         document.getElementById('sno').innerText = sno + 1;
 
         function exit() {
-            let user = localStorage.getItem('userid')
-            window.location.href = `/examapp/user/${user}`
+            let user = localStorage.getItem('userid');
+            window.location.href = `/examapp/user/${user}`;
         }
     </script>
 </body>

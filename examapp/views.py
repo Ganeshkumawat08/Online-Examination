@@ -59,7 +59,7 @@ def user(request,id):
     else:
         courses=coursemodel.objects.all()
         subjects=subjectmodel.objects.all()
-        return render(request,'notapproveuser.html',{'user':user,'courses':courses,'subjects':subjects})
+        return render(request,'user.html',{'user':user,'courses':courses,'subjects':subjects})
 
 def updateuser(request, id):
     user = get_object_or_404(usermodel, id=id)

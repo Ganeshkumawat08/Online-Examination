@@ -3,129 +3,316 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses</title>
-    <link rel="stylesheet" href="{% static 'examapp/css/bootstrap.min.css'%}">
-    <link rel="stylesheet" href="{% static 'examapp/css/all.css'%}">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin</title>
 
+    <!-- Google Fonts - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'examapp/css/bootstrap.min.css' %}" />
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'examapp/css/adminexam.css' %}">
+    <style>
+        .btn-none {
+            background: none;
+            border: none;
+            color: #0d6efd;
+            font-weight: 500;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .btn-none:hover {
+            color: #003366;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .formview {
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            animation: slideFade 0.5s ease-in-out;
+            margin-top: 30px;
+        }
+
+
+
+
+        h3 {
+            color: #0d6efd;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .form input,
+        .form select,
+        .form textarea {
+            margin-bottom: 15px;
+        }
+
+        .table {
+            animation: slideFade 0.6s ease;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table th {
+            background-color: #cce5ff;
+            color: #003366;
+            font-weight: 600;
+        }
+
+        .btn-none {
+            background: none;
+            border: none;
+            color: #0d6efd;
+            font-weight: 500;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .btn-none:hover {
+            color: #003366;
+        }
+
+        @keyframes slideFade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .formview {
+                padding: 15px;
+            }
+
+            table {
+                font-size: 14px;
+            }
+        }
+
+        .admindata {
+            padding: 80px 20px 20px;
+            margin-left: 0px;
+            transition: margin-left 0.3s ease-in-out;
+        }
+
+        @media (min-width: 992px) {
+            .admindata {
+                margin-left: 250px;
+                width: 75vw;
+                /* text-align: center; */
+            }
+        }
+        .form p {
+    margin-bottom: 1rem;
+}
+
+label {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ced4da;
+}
+    
+    </style>
 </head>
 
 <body>
-
+    <!-- Top Navbar -->
     <nav class="navbar navbar-expand-lg bg-info fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/examapp/home">Exam Online</a>
+            <a class="navbar-brand text-white" href="/examapp/admin/101"> Exam Online </a>
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#adminSidebarOffcanvas" aria-controls="adminSidebarOffcanvas">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </div>
     </nav>
 
-    <div class="adminview bg-primary-subtle">
+    <!-- Sidebar for large screens -->
+    <div class="sidebar d-none d-lg-block">
         <ul class="navbar-nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/examapp/admin/101">Admin</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/examapp/viewusers">Approved Users</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/examapp/allresults">All Results</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/examapp/courses">Courses</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="/examapp/subjects">Subjects</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/examapp/paper">Papers</a>
-            </li>
-
+            <li class="nav-item active"><a class="nav-link" href="/examapp/admin/101"><i class="bi bi-house-fill"></i>
+                    Admin</a></li>
+            <li class="nav-item"><a class="nav-link" href="/examapp/viewusers"><i class="bi bi-people-fill"></i>
+                    Approved Users</a></li>
+            <li class="nav-item"><a class="nav-link" href="/examapp/allresults"><i class="bi bi-bar-chart-fill"></i> All
+                    Results</a></li>
+            <li class="nav-item"><a class="nav-link" href="/examapp/courses"><i class="bi bi-journal-bookmark-fill"></i>
+                    Courses</a></li>
+            <li class="nav-item"><a class="nav-link" href="/examapp/subjects"><i class="bi bi-book-fill"></i>
+                    Subjects</a></li>
+            <li class="nav-item"><a class="nav-link" href="/examapp/paper"><i class="bi bi-file-earmark-text-fill"></i>
+                    Papers</a></li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                    aria-expanded="false">Add Data</a>
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><i
+                        class="bi bi-plus-circle-fill"></i> Add Data</a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/examapp/addcourse">Course</a></li>
-                    <li><a class="dropdown-item" href="/examapp/addsubject">Subject</a></li>
-                    <li><a class="dropdown-item" href="/examapp/addpaper">Paper</a></li>
+                    <li><a class="dropdown-item" href="/examapp/addcourse"><i class="bi bi-journal-plus"></i> Add
+                            Course</a></li>
+                    <li><a class="dropdown-item" href="/examapp/addsubject"><i class="bi bi-journal-plus"></i> Add
+                            Subject</a></li>
+                    <li><a class="dropdown-item" href="/examapp/addpaper"><i class="bi bi-journal-plus"></i> Add
+                            Paper</a></li>
                 </ul>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/examapp/home">Logout</a>
-            </li>
+            <li class="nav-item"><a class="nav-link" href="/examapp/home"><i class="bi bi-box-arrow-right"></i>
+                    Logout</a></li>
         </ul>
     </div>
 
-    <div class="admindata">
-
-        {% if form %}
-        {% if add %}
-        <div class="container-sm formview bg-info-subtle">
-            <h2>Add Course:</h2>
-            <form method="post" action="/examapp/addcourse" enctype="multipart/form-data" class="d-flex flex-column form">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <div style="text-align: right;">
-                    <a href="/examapp/admin/101" class="btn btn-primary me-2">Cancel</a>
-                    <button type="submit" class="btn btn-primary me-5">Submit</button>
-                </div>
-            </form>
+    <!-- Offcanvas sidebar for small screens -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="adminSidebarOffcanvas">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title"><i class="bi bi-list"></i> Admin Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
-        {% endif %}
+        <div class="offcanvas-body">
+            <ul class="navbar-nav flex-column">
+                <li class="nav-item"><a class="nav-link" href="/examapp/admin/101"><i class="bi bi-house-fill"></i>
+                        Admin</a></li>
+                <li class="nav-item"><a class="nav-link" href="/examapp/viewusers"><i class="bi bi-people-fill"></i>
+                        Approved Users</a></li>
+                <li class="nav-item"><a class="nav-link" href="/examapp/allresults"><i class="bi bi-bar-chart-fill"></i>
+                        All Results</a></li>
+                <li class="nav-item"><a class="nav-link" href="/examapp/courses"><i
+                            class="bi bi-journal-bookmark-fill"></i> Courses</a></li>
+                <li class="nav-item"><a class="nav-link" href="/examapp/subjects"><i class="bi bi-book-fill"></i>
+                        Subjects</a></li>
+                <li class="nav-item"><a class="nav-link" href="/examapp/paper"><i
+                            class="bi bi-file-earmark-text-fill"></i> Papers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/examapp/addcourse"><i class="bi bi-journal-plus"></i>
+                        Add Course</a></li>
+                <li class="nav-item"><a class="nav-link" href="/examapp/addsubject"><i class="bi bi-journal-plus"></i>
+                        Add Subject</a></li>
+                <li class="nav-item"><a class="nav-link" href="/examapp/addpaper"><i class="bi bi-journal-plus"></i> Add
+                        Paper</a></li>
+                <li class="nav-item"><a class="nav-link" href="/examapp/home"><i class="bi bi-box-arrow-right"></i>
+                        Logout</a></li>
+            </ul>
+        </div>
+    </div>
 
-        {% if edit %}
-        <div class="container-sm formview bg-info-subtle">
+    <!-- Admin Content -->
+    <div class="admindata container-fluid">
 
-        <form method="post" action="/examapp/editcourse/{{course}}" enctype="multipart/form-data" class="d-flex flex-column form">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <div style="text-align: right;">
-                <a href="/examapp/admin/101" class="btn btn-primary me-2">Cancel</a>
-                <button type="submit" class="btn btn-primary me-5">Submit</button>
+        <div class="container my-4">
+            {% if form %}
+            {% if add %}
+            <div class="container-sm formview">
+                <h2><i class="bi bi-journal-plus"></i> Add Course:</h2>
+                <form method="post" action="/examapp/addcourse" enctype="multipart/form-data"
+                    class="d-flex flex-column form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="text-end">
+                        <a href="/examapp/admin/101" class="btn btn-outline-secondary me-2">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
+            {% endif %}
 
-        {% endif %}
-        {% endif %}
+            {% if edit %}
+            <div class="container-sm formview">
+                <h4><i class="bi bi-pencil-square"></i> Edit Course</h4>
+
+                <form method="post" action="/examapp/editcourse/{{course}}" enctype="multipart/form-data"
+                    class="d-flex flex-column form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="text-end">
+                        <a href="/examapp/admin/101" class="btn btn-outline-secondary me-2">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+
+            {% endif %}
+            {% endif %}
 
 
 
-        {% if courses %}
+            {% if courses %}
+            <h2 class="text-primary mb-3"><i class="bi bi-journal-bookmark-fill"></i>Courses</h2>
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                    <thead class="table-light">
+                        <tr>
 
-        <h2>Course</h2>
-        <table class="table table-info table-hover ">
-            <thead>
-                <tr>
-                    <th>S.NO.</th>
-                    <th>Course</th>
-                    <th>Subjects</th>
-                    <th>Update</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for course in courses %}
+                            <th>S.NO.</th>
+                            <th>Course</th>
+                            <th>Subjects</th>
+                            <th>Update</th>
+                            <th>Delete</th>
 
-                <tr>
-                    <th>{{forloop.counter}}</th>
-                    <th>{{course.name}}</th>
-                    <td>
-                        {% for subject in course.subjects.all %}
-                        {{subject.name}} <br>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for course in courses %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{course.name}}</td>
+
+                            <td>
+                                <ol>
+                                    {% for subject in course.subjects.all %}
+                                    <li> {{subject.name}} ({{subject.short_name}})</li>
+                                    {% endfor %}
+                                </ol>
+                            </td>
+                            <td><a href="/examapp/editcourse/{{course.id}}" class="btn-none"> <i
+                                        class="bi bi-pencil-square"></i> Update Course</a></td>
+                            <td> <button onclick="conform(this)" id="{{course.id}}" value="courses"
+                                    class="btn-none text-danger"><i class="bi bi-trash-fill"></i>
+                                    Delete</button></td>
+                        </tr>
                         {% endfor %}
-                    </td>
-                    <td><a href="/examapp/editcourse/{{course.id}}" class="btn-none">Update Course</a></td>
-                    <td> <button onclick="conform(this)" id="{{course.id}}" value="courses"
-                            class="btn-none">Delete</button></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+
+
+        </div>
+
     </div>
-    <script src="{% static 'examapp/js/bootstrap.bundle.min.js'%}"></script>
-    <script src="{% static 'examapp/js/script.js'%}"></script>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="{% static 'examapp/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 
 </html>
