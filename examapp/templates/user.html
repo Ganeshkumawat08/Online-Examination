@@ -86,10 +86,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav w-100">
-                    <a class="nav-link ms-auto {% if request.path == '/examapp/examresult/'|add:user.id|stringformat:'s' %}active{% endif %}" href="/examapp/examresult/{{ user.id }}">
+                    <a class="nav-link ms-auto {% if request.path == '/examapp/examresult/'|add:user.id|stringformat:'s' %}active{% endif %}"
+                        href="/examapp/examresult/{{ user.id }}">
                         <i class="bi bi-clipboard-data me-1"></i> Result
                     </a>
-                    <button class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" style="color:white;">
+                    <button class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                        style="color:white;">
                         <i class="bi bi-person-circle me-1"></i> Account Details
                     </button>
                     <a class="nav-link" href="/examapp/home">
@@ -117,7 +119,8 @@
                 <li><i class="bi bi-gender-ambiguous me-1 text-muted"></i> Gender: <span>{{ user.gender }}</span></li>
                 <li><i class="bi bi-calendar-event me-1 text-muted"></i> DOB: <span>{{ user.dob }}</span></li>
                 <li><i class="bi bi-envelope-at me-1 text-muted"></i> Email: <span>{{ user.email }}</span></li>
-                <li><i class="bi bi-telephone-forward me-1 text-muted"></i> Mobile: <span>{{ user.mobile_number }}</span></li>
+                <li><i class="bi bi-telephone-forward me-1 text-muted"></i> Mobile: <span>{{ user.mobile_number
+                        }}</span></li>
                 <li><i class="bi bi-info-circle me-1 text-muted"></i> Status:
                     {% if user.status %}
                     <span class="text-success">Approved</span>
@@ -175,7 +178,8 @@
             <div class="col">
                 <div class="card h-100 bg-info-subtle fade-in">
                     <div class="card-body">
-                        <h5 class="card-title"><i class="bi bi-book me-1"></i> {{ subject.name }} ({{subject.short_name}})</h5>
+                        <h5 class="card-title"><i class="bi bi-book me-1"></i> {{ subject.name }}
+                            ({{subject.short_name}})</h5>
                     </div>
                     <div class="card-body">
                         {% if user.status %}

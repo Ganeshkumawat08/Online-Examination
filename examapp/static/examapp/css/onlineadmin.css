@@ -1,0 +1,92 @@
+* {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f8ff;
+}
+
+.navbar {
+    background-color: #007bff !important;
+}
+
+.navbar-brand {
+    font-weight: 600;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #ffffff;
+    height: 100vh;
+    position: fixed;
+    padding-top: 70px;
+    border-right: 1px solid #e0e0e0;
+}
+
+.sidebar .nav-link {
+    color: #333;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #e3f2fd;
+    transform: translateX(5px);
+    font-weight: 600;
+}
+
+.sidebar .bi {
+    margin-right: 8px;
+}
+
+.admindata {
+    margin-left: 250px;
+    padding: 80px 20px 20px;
+}
+
+@media (max-width: 992px) {
+    .sidebar {
+        display: none;
+    }
+
+    .admindata {
+        margin-left: 0;
+        padding-top: 80px;
+    }
+
+    .offcanvas-body {
+        padding-left: 1rem;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-toggler {
+        border: none;
+        box-shadow: none;
+    }
+}
+
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.home-container {
+    animation: fadeSlide 0.6s ease-in-out;
+}
+
+.home-container h1 {
+    font-weight: 600;
+    color: #0056b3;
+}

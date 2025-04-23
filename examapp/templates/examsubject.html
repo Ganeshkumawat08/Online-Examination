@@ -83,7 +83,7 @@
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="/examapp/user/{{ user.id }}">
-              Exam Online
+                Exam Online
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
                 <span class="navbar-toggler-icon"></span>
@@ -93,7 +93,8 @@
                     <a class="nav-link ms-auto" href="/examapp/examresult/{{ user.id }}">
                         <i class="bi bi-clipboard-data me-1"></i> Result
                     </a>
-                    <button class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" style="color:white;">
+                    <button class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                        style="color:white;">
                         <i class="bi bi-person-circle me-1"></i> Account Details
                     </button>
                     <a class="nav-link" href="/examapp/home">
@@ -122,7 +123,8 @@
                 <li><i class="bi bi-gender-ambiguous me-1 text-muted"></i> Gender: <span>{{ user.gender }}</span></li>
                 <li><i class="bi bi-calendar-event me-1 text-muted"></i> DOB: <span>{{ user.dob }}</span></li>
                 <li><i class="bi bi-envelope-at me-1 text-muted"></i> Email: <span>{{ user.email }}</span></li>
-                <li><i class="bi bi-telephone-forward me-1 text-muted"></i> Mobile: <span>{{ user.mobile_number }}</span></li>
+                <li><i class="bi bi-telephone-forward me-1 text-muted"></i> Mobile: <span>{{ user.mobile_number
+                        }}</span></li>
                 <li><i class="bi bi-info-circle me-1 text-muted"></i> Status:
                     {% if user.status %}
                     <span class="text-success">Approved</span>
@@ -131,10 +133,10 @@
                     {% endif %}
                 </li>
                 <li><a class="nav-link" href="/examapp/updateuser/{{ user.id }}">
-                    <i class="bi bi-pencil-square me-1"></i> Update Account</a>
+                        <i class="bi bi-pencil-square me-1"></i> Update Account</a>
                 </li>
                 <li><a class="nav-link" href="/examapp/deleteuser/{{ user.id }}">
-                    <i class="bi bi-trash3 me-1"></i> Delete Account</a>
+                        <i class="bi bi-trash3 me-1"></i> Delete Account</a>
                 </li>
             </ul>
         </div>
@@ -143,7 +145,7 @@
     <!-- Main Content -->
     <div class="container-sm bg-info-subtle p-4 rounded shadow-sm fade-in" style="margin-top: 100px;">
         <h4 class="text-center mb-4 text-primary">
-            <i class="bi bi-book me-1 text-primary"></i> <span id="subject" >{{ subject }}</span>
+            <i class="bi bi-book me-1 text-primary"></i> <span id="subject">{{ subject }}</span>
         </h4>
         <div class="d-flex justify-content-center gap-4">
             <ul class="list-unstyled">
