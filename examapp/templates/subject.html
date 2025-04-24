@@ -295,6 +295,17 @@
 
     <!-- Bootstrap Bundle JS -->
     <script src="{% static 'examapp/js/bootstrap.bundle.min.js' %}"></script>
+    <script>
+        function conform(button) {
+            c = confirm('delete')
+            if (c) {
+                window.location.href = `/examapp/delete/${button.value}/${button.id}`;
+            }
+            else {
+                return;
+            }
+        }
+    </script>
 </body>
 
 </html>
